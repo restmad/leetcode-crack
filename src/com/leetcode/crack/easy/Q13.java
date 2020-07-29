@@ -49,6 +49,52 @@ public class Q13 {
     著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
      */
     public static void main(String[] args) {
+        int result = new Q13().romanToInt("MCMXCIV");
+        System.out.println("result: " + result);
+    }
 
+    public int romanToInt(String s) {
+        /*
+        I             1
+        V             5
+        X             10
+        L             50
+        C             100
+        D             500
+        M             1000
+         */
+        java.util.Map<Character, Integer> charDataMap = new java.util.HashMap<>();
+        charDataMap.put('I', 1);
+        charDataMap.put('V', 5);
+        charDataMap.put('X', 10);
+        charDataMap.put('L', 50);
+        charDataMap.put('C', 100);
+        charDataMap.put('D', 500);
+        charDataMap.put('M', 1000);
+
+        String seq = "IVXLCDM";
+
+        int result = 0;
+        char[] chars = s.toCharArray();
+        char prefix = chars[0];
+        result = charDataMap.get(prefix);
+        for(int i = 1; i < chars.length; i++) {
+            char ch = chars[i];
+            int preIndex = seq.indexOf(prefix);
+            int preNum = charDataMap.get(prefix);
+            int index = seq.indexOf(ch);
+            int num = charDataMap.get(ch);
+
+//            System.out.println("preindex: " + preIndex + ", prenum: " + preNum + ", index: " + index + ", num: " + num);
+
+            if(preIndex >= index) {
+                result += num;
+            } else {
+                result = result - preNum + num - preNum;
+            }
+
+            prefix = ch;
+        }
+        return result;
     }
 }
