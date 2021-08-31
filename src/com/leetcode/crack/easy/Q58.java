@@ -34,9 +34,17 @@ public class Q58 {
         }
 
         char[] chs = s.toCharArray();
-        for(int i = 0; i < chs.length; i++) {
-            if(chs[i] == ' ') {
-                
+        boolean isStartCount = false;
+        for(int i = chs.length - 1; i >= 0; i--) {
+            if(chs[i] != ' ') {
+                if(!isStartCount) {
+                    isStartCount = true;
+                }
+                result++;
+            } else {
+                if(isStartCount) {
+                    break;
+                }
             }
         }
 
